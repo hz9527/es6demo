@@ -61,24 +61,81 @@ a = 1//<==>window.a,因为为执行window.a = 2直接a=1会报错
 ### 对象的拓展
 [toTop](#readme)
 ### 数组的拓展
-[toTop](#readme)
+[toTop](#readme)  
+#### 1.Array.from
+在面对类数组对象想将其转化为数组，如domlist arguments
+```javaScript
+var likeArr = {
+	'0': 1,
+	'1': 2,
+	length: 2
+}
+//es5
+var arr = Array.prototype.slice.call(likeArr);
+//es6
+var arr = Array.from(likeArr)
+```
+#### 2.Array.of
+我们知道new Array有一个bug，就是传入一个参数表示数组长度，多个参数则是数组每一个值，Array.of就解决了这个问题，参数即数组的每一项
+
+#### 3.Array.copyWithIn
+三个参数，第一个参数是替换起点，第二个参数是替换子数组起始位置，第三个参数为替换子数组结束位置，支持负数。改变原数组
+```JavaScript
+var arr = [1,2,3,4,5];
+console.log(arr.copyWithIn(-4,-2))//[1,4,5,4,5]
+```
+
+#### find findIndex
+参数为回调函数，类似String.prototype.index,返回第一个符合回调函数要求的项（或下标）
+```JavaScript
+var arr = [1,2,-3,-4,5];
+arr.find((n) => n < 0);//-3
+arr.findIndex(n => n < 0);//2
+```
+
+
+
 ### 数值的拓展
-[toTop](#readme)
+[toTop](#readme)  
+#### 1.判断 Number.isNaN Number.isFinite Number.isInteger
+判断一个数是否是NaN，无限大，整数  
+注：判断是否是整数只是判断其浮点位是否为0
+```JavaScript
+var a = 30.0;
+Number.isInteger(a);//true
+```
+#### 2.重写Number.parseInt Number.parseFloat
+这两个方法没有任何变化，只是从全局函数变为Number原型方法，减少全局函数数量
+
+#### 3.Math内置对象的拓展
+1. Math.trunc 返回整数部分
+2. Math.sign 判断一个数是正数负数还是0（＋－）返回+1 -1 +0 -0
+3. Mah.signbit -0 <0 true +0 >0 false
+
+#### 4.新增运算符 **
+```
+console.log(2**3)//8 2的三次方
+```
+
+
+
+
+
 ### 字符串的拓展
 [toTop](#readme)
-#### 遍历器（for of）
-#### 子字符串方法（startsWith endsWith includes）
+#### 1.遍历器（for of）
+#### 2.子字符串方法（startsWith endsWith includes）
 es5仅提供了indexOf()lastIndexOf()来判断参数字符串在字符串中下标，以上三个接口均返回布尔
-#### 重复字符串（repeat）
+#### 3.重复字符串（repeat）
 参数为数字
 ```JavaScript
  var a = 'h';
  a.repeat(2)//'hh'
 ```
-#### 补全字符串（padStart padEnd）
+#### 4.补全字符串（padStart padEnd）
 第一个参数是补全长度，第二个是使用补全的字符,如果原字符长度长于规定长度，返回原字符串；如果补全字符串长于需要补全长度，那么会截取需要的长度；如果补全字符为空，则以空格补全
 
-#### 字符串模版
+#### 5.字符串模版
 在js中经常需要拼接字符串，在es6中提供了字符串模版
 ```javaScript
 var name = 'hz';
@@ -86,6 +143,8 @@ var age = 24;
 console.log(`my name is ${name} and i am ${age}`)//my name is hz and i am 24
 ```
 使用${}盛放js表达式，意味着可以使用函数
+
+
 ### 正则的拓展
 [toTop](#readme)
 ### Symbol
