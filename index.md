@@ -57,9 +57,63 @@ a = 1//<==>window.a,因为为执行window.a = 2直接a=1会报错
 
 ### 函数的拓展  
 [toTop](#readme)  
+#### 1.参数默认值
+可以理解为在参数中执行了let
+1. 函数体内不可使用同名块级作用域声明
+2. 不能使用同名参数，即使未对该参数设置默认值
+3. 默认值可以是动态的
+4. 指定默认值后函数长度失真（指定默认值参数不计入长度中）
+
+#### 2.rest参数
+ES6 引入 rest 参数（形式为“...变量名”），用于获取函数的多余参数，这样就不需要使用arguments对象了。适用于数组，对象甚至字符串
+1. rest参数只能作为最后一个参数
+2. 同样，rest参数会被length忽略
+
+*扩展*  
+>...除了定义参数，还可以传实参（这个就不要求后面不能有参数了），最大作用就是取代apply与arguments组合了
+
+>当然...除了作为参数也是一种运算符，运用十分广泛
+
+#### 3.箭头函数
+1. 基本使用 v => v 类似于function(v){return v}
+2. 多个参数时需要用括号(v1, v2) => v1 + v2
+3. 函数体如果有块级部分必须扩起来，如变量声明；等
+4. 只能使用var fn = n => n;形式赋值
+5. this遵循作用域链原则
+6. arguments不存在
+7. 不能作为构造函数
+8. 不可以使用yield命令，因此箭头函数不能用作Generator函数。
+9. 环境栈不变，即访问this是父环境
+
+#### 4.严格模式
+ECMAScript 2016标准》做了一点修改，规定只要函数参数使用了默认值、解构赋值、或者扩展运算符，那么函数内部就不能显式设定为严格模式，否则会报错。
+
+#### 5.name
+返回函数名，作为函数的属性
+
+#### 6.this绑定
+一种是bind 一种是::
+```javaScript
+foo::bar;
+// 等同于
+bar.bind(foo);
+
+foo::bar(...arguments);
+// 等同于
+bar.apply(foo, arguments);
+```
+
+#### 7.尾调用优化
+
+#### 8.逗号
+
 
 ### 对象的拓展
-[toTop](#readme)
+[toTop](#readme)   
+
+
+
+
 ### 数组的拓展
 [toTop](#readme)  
 #### 1.Array.from
@@ -85,14 +139,52 @@ var arr = [1,2,3,4,5];
 console.log(arr.copyWithIn(-4,-2))//[1,4,5,4,5]
 ```
 
-#### find findIndex
+#### 4.find findIndex
 参数为回调函数，类似String.prototype.index,返回第一个符合回调函数要求的项（或下标）
 ```JavaScript
 var arr = [1,2,-3,-4,5];
 arr.find((n) => n < 0);//-3
 arr.findIndex(n => n < 0);//2
 ```
+#### 5.fill
+可以作为初始化数组使用，第一个参数为填充值，第二个参数为填充起始下标，第三个参数为结束下标(含头不含尾)
+```javaScript
+new Array(3).fill([1,2]);//[[1,2],[1,2],[1,2]]
+new Array(3).fill(2,1,2);//[undefined,2,undefined]
+```
 
+#### 6.entries keys values
+我们知道在js中数组底层实际是对象，因此也有key value一说
+```javaScript
+var arr = ['hh','xx'];
+for (var key in arr.keys()) {
+	console.log(key);//0 1
+}
+for (var value in arr.values()) {
+	console.log(value);//'hh' 'xx'
+}
+for (var [key, value] in arr.entries()) {
+	console.log(key, value)
+}
+```
+#### 7.includes
+见名知意，判断数组中是否包含某一项,第一个参数为校验项，第二个参数为开始下标  
+注：这里的比较是直接使用比较符，即对象不对比值是否相同而是对比引用是否相同
+```javaScript
+var arr1 = [1,2,3];
+arr1.includes(2);//true
+arr1.includes(2,2);//false
+
+var arr2 = [
+	{a:1,b:2},
+	{c:3,d:4}
+];
+arr2.includes({a:1,b:2});//false
+var item = arr2[0];
+arr2.includes(item);//true
+```
+#### 8.空位处理
+数组某一项空位和值为undefined是不一样的
 
 
 ### 数值的拓展
@@ -153,8 +245,7 @@ console.log(`my name is ${name} and i am ${age}`)//my name is hz and i am 24
 [toTop](#readme)
 ### Promise
 [toTop](#readme)
-### 遍历器
-[toTop](#readme)
+
 ### 遍历器
 [toTop](#readme)
 ### Generator&其异步
