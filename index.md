@@ -198,10 +198,19 @@ new Promise((resolve, reject) => {
 #### 3.Promise.prototype.catch
 catch能够捕捉到未执行的reject，执行中的错误(try catch)  
 因此推荐在then只处理成功，通过catch来批量处理错误
-#### 4.Promise.resolve
-#### 5.Promise.reject
-#### 6.Promise.all
-#### 7.Promise.race
+
+#### 4.Promise.all
+参数为一个可遍历的对象，如数组，map等，每一项为一个Promise对象，如果不是会调用Promise.resolve将其转化  
+将一组Promise封装成一个Promise
+1.如果全部resolved，则将执行resove，参数为一个数组，存放着每一个resolve的返回  
+2.如果其中至少一项为reject，则执行reject并返回第一个reject的返回
+
+#### 5.Promise.race
+参数与all相同，当一个状态变更，则新Promise状态就是那个状态，不论是reject还是resolve
+#### 6.Promise.resolve
+
+#### 7.Promise.reject
+
 #### 8.Promise.prototype.done
 #### 9.Promise.prototype.finally
 ### 遍历器
