@@ -306,17 +306,36 @@ catch能够捕捉到未执行的reject，执行中的错误(try catch)
 
 #### 8.Promise.prototype.done
 #### 9.Promise.prototype.finally
+
 ### 遍历器
 [toTop](#readme)
-### 遍历器
-[toTop](#readme)
+
 ### Generator&其异步
 [toTop](#readme)
 ### async
 [toTop](#readme)
 ### Decorator
-[toTop](#readme)
+[toTop](#readme)  
+
 ### Class
-[toTop](#readme)
+[toTop](#readme)  
+#### 1.基本使用
+1. 类似构造函数
+2. 内部constructor类似构造函数，方法类似原型
+3. 不能声明提前，多种声明方式（类似函数）
+4. name为类后的名字而不是类名
+5. 实例化必须使用new
+6. ‘原型方法’对外不可见Object.keys不能枚举
+
+#### 2.继承及原生构造函数继承
+#### 3.getter与setter
+#### 4.类的Generator
+#### 5.Class的静态方法
+#### 6.静态属性与实例属性
+#### 7.类的私有属性
+#### 8.new.target
+#### 9.Mixin模式的实现
+
+
 ### Module
 [toTop](#readme)
