@@ -13,16 +13,17 @@
 [正则的拓展](#正则的拓展)  
 新类型  
 [Symbol](#Symbol)  
-[Set&Map](#Set&Map)  
-[Promise](#Promise)  
-新函数  
+[Set&Map](#Set&Map)   
+异步方案  
+[Promise](#Promise)
 [遍历器](#遍历器)  
 [Generator&其异步](#Generator&其异步)  
 [async](#async)
-[Decorator](#Decorator)   
-类及模块  
+类及模块
+[Decorator](#Decorator)    
 [Class](#Class)  
 [Module](#Module)  
+
 
 ### 变量声明  
 [toTop](#readme)  
@@ -313,9 +314,140 @@ catch能够捕捉到未执行的reject，执行中的错误(try catch)
 ### Generator&其异步
 [toTop](#readme)
 ### async
-[toTop](#readme)
+[toTop](#readme)  
+
 ### Decorator
 [toTop](#readme)  
+#### 1.类的装饰
+在装饰者模式中，我们知道一个类不需要具有太多功能，可以通过装饰者模式来对类的功能进行拓展。当然在类也可以通过继承的方式衍生来实现，而es7明确提出了装饰符
+> 修饰器（Decorator）是一个函数，用来修改类的行为。这是ES7的一个提案，目前Babel转码器已经支持。
+修饰器对类的行为的改变，是代码编译时发生的，而不是在运行时。这意味着，修饰器能在编译阶段运行代码。
+
+```JavaScript
+// 以下代码需要babel转译并使用experimental
+function testAble (Obj) {
+	Obj.isTeasAble = true
+}
+@testAble class MyClass {}
+console.log(MyClass.isTeasAble) // true
+```
+以上案例会让我们觉得装饰器内是写死的（装饰期间默认执行函数，并默认传入需要包装的类），那么如何传入更多的参数？  
+我们知道装饰器是函数，并只能传入一个参数（被装饰的类），那么我们可以通过闭包的方式（函数式）完成
+```JavaScript
+function myDecorator (arg) {
+	return function (target) {
+		... // can use arg
+	}
+}
+@myDecorator(arg) class MyClass {}
+```
+当然以上都只是添加静态属性(如果是静态方法记得实例是访问不到的哦)，我们应该为之添加原型属性，记得使用prototype即可
+
+
+#### 2.方法的装饰
+我们除了可以装饰类（为其添加静态属性、方法或原型属性、方法）还可以去装饰类的方法
+```JavaScript
+function (target, name, descriptor) {
+	// descriptor对象原来的值如下
+  // {
+  //   value: specifiedFunction, // target.name
+  //   enumerable: false,
+  //   configurable: true,
+  //   writable: true
+  // };
+	... // change descriptor
+	return descriptor
+}
+```
+面向剖面编程（AOP），执行时打印log
+```JavaScript
+class Math {
+  @log
+  add(a, b) {
+    return a + b;
+  }
+}
+
+function log(target, name, descriptor) {
+  var oldValue = descriptor.value;
+
+  descriptor.value = function() {
+    console.log(`Calling "${name}" with`, arguments);
+    return oldValue.apply(null, arguments);
+  };
+
+  return descriptor;
+}
+
+const math = new Math();
+
+// passed parameters should get logged now
+math.add(2, 4);
+```
+> 如果同一个方法有多个修饰器，会像剥洋葱一样，先从外到内进入，然后由内向外执行。对了，返回的装饰可以是函数
+
+```JavaScript
+function dec(id){
+    console.log('evaluated', id);
+    return (target, property, descriptor) => console.log('executed', id);
+}
+
+class Example {
+    @dec(1)
+    @dec(2)
+    method(){}
+}
+// evaluated 1
+// evaluated 2
+// executed 2
+// executed 1
+```
+
+#### 3.为什么装饰器不能用于函数
+我们知道类是不会声明提前的，而且装饰是发生在编译期间的，因此这就是函数不能被装饰的原因
+#### 4.core-decorators.js
+core-decorators.js是一个第三方模块，提供了几个常见的修饰器，通过它可以更好地理解修饰器。
+[go](http://es6.ruanyifeng.com/#docs/decorator#core-decorators-js)
+
+#### 5.使用修饰器实现自动发布事件
+我们可以使用修饰器，使得对象的方法被调用时，自动发出一个事件。
+```JavaScript
+import postal from "postal/lib/postal.lodash";
+
+export default function publish(topic, channel) {
+  return function(target, name, descriptor) {
+    const fn = descriptor.value;
+
+    descriptor.value = function() {
+      let value = fn.apply(this, arguments);
+      postal.channel(channel || target.channel || "/").publish(topic, value);
+    };
+  };
+}
+
+import publish from "path/to/decorators/publish";
+
+class FooComponent {
+  @publish("foo.some.message", "component")
+  someMethod() {
+    return {
+      my: "data"
+    };
+  }
+  @publish("foo.some.other")
+  anotherMethod() {
+    // ...
+  }
+}
+
+let foo = new FooComponent();
+
+foo.someMethod() // 在"component"频道发布"foo.some.message"事件，附带的数据是{ my: "data" }
+foo.anotherMethod() // 在"/"频道发布"foo.some.other"事件，不附带数据
+```
+#### 6.Mixin
+#### 7.Trait
+#### 8.其他
 
 ### Class
 [toTop](#readme)  
@@ -383,6 +515,7 @@ class MyClass {
 }
 ```
 #### 4.类的Generator
+
 #### 5.Class的静态方法
 > 类相当于实例的原型，所有在类中定义的方法，都会被实例继承。如果在一个方法前，加上static关键字，就表示该方法不会被实例继承，而是直接通过类来调用，这就称为“静态方法”。
 
