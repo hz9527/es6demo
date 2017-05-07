@@ -12,17 +12,17 @@
 [字符串的拓展](#字符串的拓展)  
 [正则的拓展](#正则的拓展)  
 新类型  
-[Symbol](#Symbol)  
-[Set&Map](#Set&Map)   
+[Symbol](#symbol)  
+[Set&Map](#set&map)   
 异步方案  
-[Promise](#Promise)  
+[Promise](#promise)  
 [遍历器](#遍历器)  
-[Generator&其异步](#Generator&其异步)  
+[Generator&其异步](#generator&其异步)  
 [async](#async)  
 类及模块  
 [装饰器Decorator](#装饰器decorator)  
-[类Class](#类Class)  
-[模块Module](#模块Module)  
+[类Class](#类class)  
+[模块Module](#模块module)  
 
 
 ### 变量声明  
@@ -232,13 +232,13 @@ console.log(`my name is ${name} and i am ${age}`)//my name is hz and i am 24
 ### 正则的拓展
 [toTop](#readme)  
 ***
-### Symbol
+### symbol
 [toTop](#readme)  
 ***
-### Set&Map
+### set&map
 [toTop](#readme)  
 ***
-### Promise  
+### promise  
 [toTop](#readme)  
 #### 1.基本使用
 单线程，异步，无阻塞，时间循环。js最具特色的地方。  
@@ -441,7 +441,7 @@ foo.anotherMethod() // 在"/"频道发布"foo.some.other"事件，不附带数�
 #### 7.Trait
 #### 8.其他
 ***
-### 类Class  
+### 类class  
 [toTop](#readme)  
 #### 1.基本使用
 1. 类似构造函数
@@ -525,5 +525,5 @@ class DistributedEdit extends mix(Loggable, Serializable) {
 }
 ```
 ***
-### 模块Module  
+### 模块module  
 [toTop](#readme)  
