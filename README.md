@@ -19,7 +19,7 @@
 [遍历器](#遍历器)  
 [Generator&其异步](#Generator&其异步)  
 [async](#async)  
-类及模块
+类及模块  
 [Decorator](#Decorator)  
 [Class](#Class)  
 [Module](#Module)  
