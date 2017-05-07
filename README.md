@@ -20,9 +20,9 @@
 [Generator&其异步](#Generator&其异步)  
 [async](#async)  
 类及模块  
-[Decorator](#Decorator)  
-[Class](#Class)  
-[Module](#Module)  
+[Decorator](#Decorator装饰器)  
+[Class](#Class类)  
+[Module](#Module模块)  
 
 
 ### 变量声明  
@@ -322,7 +322,7 @@ catch能够捕捉到未执行的reject，执行中的错误(try catch)
 [toTop](#readme)  
 
 
-### Decorator
+### Decorator装饰器
 [toTop](#readme)  
 #### 1.类的装饰
 在装饰者模式中，我们知道一个类不需要具有太多功能，可以通过装饰者模式来对类的功能进行拓展。当然在类也可以通过继承的方式衍生来实现，而es7明确提出了装饰符
@@ -455,7 +455,7 @@ foo.anotherMethod() // 在"/"频道发布"foo.some.other"事件，不附带数�
 #### 7.Trait
 #### 8.其他
 
-### Class
+### Class类
 [toTop](#readme)  
 #### 1.基本使用
 1. 类似构造函数
@@ -540,5 +540,5 @@ class DistributedEdit extends mix(Loggable, Serializable) {
 ```
 
 
-### Module
+### Module模块
 [toTop](#readme)  
