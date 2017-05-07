@@ -17,12 +17,12 @@
 异步方案  
 [Promise](#Promise)  
 [遍历器](#遍历器)  
-[Generator&其异步](#Generator&其异步)  
+[Generator&其异步](# Generator&其异步)  
 [async](#async)  
 类及模块  
-[Decorator](#Decorator装饰器)  
-[Class](#Class类)  
-[Module](#Module模块)  
+[Decorator](# Decorator装饰器)  
+[Class](# Class类)  
+[Module](# Module模块)  
 
 
 ### 变量声明  
