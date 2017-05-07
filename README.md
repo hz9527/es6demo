@@ -52,10 +52,10 @@ a = 1//<==>window.a,因为为执行window.a = 2直接a=1会报错
 2. web worker中没有window对象，但是在浏览器和web worker中self都会指向顶层对象
 3. 在node中顶层对象使用global
 4. 在es5其实不允许在块作用域中声明提前方式声明函数
-
+***
 ### 解构赋值  
 [toTop](#readme)  
-
+***
 ### 函数的拓展  
 [toTop](#readme)  
 #### 1.参数默认值
@@ -107,14 +107,10 @@ bar.apply(foo, arguments);
 #### 7.尾调用优化
 
 #### 8.逗号
-
-
+***
 ### 对象的拓展
 [toTop](#readme)   
-
-
-
-
+***
 ### 数组的拓展
 [toTop](#readme)  
 #### 1.Array.from
@@ -209,11 +205,7 @@ Number.isInteger(a);//true
 ```
 console.log(2**3)//8 2的三次方
 ```
-
-
-
-
-
+***
 ### 字符串的拓展
 [toTop](#readme)
 #### 1.遍历器（for of）
@@ -236,17 +228,16 @@ var age = 24;
 console.log(`my name is ${name} and i am ${age}`)//my name is hz and i am 24
 ```
 使用${}盛放js表达式，意味着可以使用函数
-
-
+***
 ### 正则的拓展
 [toTop](#readme)  
-
+***
 ### Symbol
 [toTop](#readme)  
-
+***
 ### Set&Map
 [toTop](#readme)  
-
+***
 ### Promise
 [toTop](#readme)  
 #### 1.基本使用
@@ -309,19 +300,14 @@ catch能够捕捉到未执行的reject，执行中的错误(try catch)
 
 #### 8.Promise.prototype.done
 #### 9.Promise.prototype.finally
-
-
+***
 ### 遍历器
 [toTop](#readme)
-
-
 ### Generator&其异步
 [toTop](#readme)
-
 ### async
 [toTop](#readme)  
-
-
+***
 ### Decorator装饰器
 [toTop](#readme)  
 #### 1.类的装饰
@@ -454,7 +440,7 @@ foo.anotherMethod() // 在"/"频道发布"foo.some.other"事件，不附带数�
 #### 6.Mixin
 #### 7.Trait
 #### 8.其他
-
+***
 ### Class类
 [toTop](#readme)  
 #### 1.基本使用
@@ -538,7 +524,6 @@ class DistributedEdit extends mix(Loggable, Serializable) {
   // ...
 }
 ```
-
-
+***
 ### Module模块
 [toTop](#readme)  
