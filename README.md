@@ -15,12 +15,12 @@
 [Symbol](#Symbol)  
 [Set&Map](#Set&Map)   
 异步方案  
-[Promise](#Promise)
+[Promise](#Promise)  
 [遍历器](#遍历器)  
 [Generator&其异步](#Generator&其异步)  
-[async](#async)
+[async](#async)  
 类及模块
-[Decorator](#Decorator)    
+[Decorator](#Decorator)  
 [Class](#Class)  
 [Module](#Module)  
 
