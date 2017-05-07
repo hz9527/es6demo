@@ -326,15 +326,79 @@ catch能够捕捉到未执行的reject，执行中的错误(try catch)
 4. name为类后的名字而不是类名
 5. 实例化必须使用new
 6. ‘原型方法’对外不可见Object.keys不能枚举
+7. 使用解构赋值可能使this丢失
+
+```JavaScript
+var Person = class SomeOne {}
+console.log(Person.name) // SomeOne
+
+class Logger {
+  printName(name = 'there') {
+    this.print(`Hello ${name}`);
+  }
+
+  print(text) {
+    console.log(text);
+  }
+}
+
+const logger = new Logger();
+const { printName } = logger;
+printName(); // TypeError: Cannot read property 'print' of undefined
+```
 
 #### 2.继承及原生构造函数继承
+使用extends实现继承
+```JavaScript
+class ColorPoint extends Point {}
+```
+继承（执行父类构造器）super(arg)，super相当于执行父类相关方法，如重写父类一些方法
+```JavaScript
+class Child extends Parent {
+	constructor (x, y, z) {
+		super(x, y) // 调用父类constructor
+		this.parent = z
+	}
+	getSome () {
+		return this.parent + super.getSome() // 调用父类getSome方法
+	}
+}
+```
+> 子类必须在constructor方法中调用super方法，否则新建实例时会报错。这是因为子类没有自己的this对象，而是继承父类的this对象，然后对其进行加工。如果不调用super方法，子类就得不到this对象。当然子类可以不需要构造器，这样也不必执行super  
+> 当然子类的constructor中未执行super前是不能访问this的
+
 #### 3.getter与setter
+可以使用get set关键字代理属性，注意这里的代理没Proxy好用，因为这种代理只是起到拦截作用，所以稍有不慎会报错
+```javaScript
+class MyClass {
+  constructor() {
+    // ...
+  }
+  get prop() {
+    return 'getter';
+  }
+  set prop(value) {
+    console.log('setter: '+value);
+  }
+}
+```
 #### 4.类的Generator
 #### 5.Class的静态方法
+> 类相当于实例的原型，所有在类中定义的方法，都会被实例继承。如果在一个方法前，加上static关键字，就表示该方法不会被实例继承，而是直接通过类来调用，这就称为“静态方法”。
+
+优点： 有些方法没必要暴露给实例，静态方法是个非常不错的选择，调用时就不要使用this了直接xx就行
+缺点： 偶尔可能会混乱了，毕竟还可以继承
 #### 6.静态属性与实例属性
+直接写（注意babel设置），类与实例都能访问，每次实例化都会重写属性
 #### 7.类的私有属性
+类似静态属性的用法，不过变量名前加#
 #### 8.new.target
 #### 9.Mixin模式的实现
+```
+class DistributedEdit extends mix(Loggable, Serializable) {
+  // ...
+}
+```
 
 
 ### Module
