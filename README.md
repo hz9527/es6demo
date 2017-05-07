@@ -23,6 +23,7 @@
 [装饰器Decorator](#装饰器decorator)  
 [类Class](#类class)  
 [模块Module](#模块module)  
+[es6模块与common.js及amd模块区别](#es6模块与common.js及amd模块区别)
 
 
 ### 变量声明  
@@ -527,3 +528,90 @@ class DistributedEdit extends mix(Loggable, Serializable) {
 ***
 ### 模块module  
 [toTop](#readme)  
+#### 1.概述
+> 在 ES6 之前，社区制定了一些模块加载方案，最主要的有 CommonJS 和 AMD 两种。**前者用于服务器(require)**，**后者用于浏览器(import)**。ES6 在语言标准的层面上，实现了模块功能，而且实现得相当简单，完全可以取代 CommonJS 和 AMD 规范，成为浏览器和服务器通用的模块解决方案。  
+ES6 模块的设计思想，**是尽量的静态化**，使得编译时就能确定模块的依赖关系，以及输入和输出的变量。*CommonJS 和 AMD 模块，都只能在运行时确定这些东西*。比如，CommonJS 模块就是对象，输入时必须查找对象属性。  
+
+ES6 可以 **在编译时就完成模块加载**，效率要比 CommonJS 模块的加载方式高。当然，这也导致了没法引用 ES6 模块本身，因为 **它不是对象**  
+ES6 模块默认是严格模式，因此注意那些不能使用的语法
+
+#### 2.export于import
+1. export只能以接口形式导出模块,因此1）可以同时导出多个；2）导出的是一个模块（接口s），而不是一个值更不是一个对象；3）接口能被使用（拥有标识符）
+```JavaScript
+// 导出的是接口
+var a = {}
+export a // error 不是对象
+
+var a = {}
+export {a} // ok
+
+export function () {} // error 无标识符无法import
+
+export function a () {} // ok
+
+// 导出多个
+// a.js
+export function a () {}
+export function b () {}
+// b.js
+import {a, b} from './a.js'
+
+// 一次性d导出多个
+var a = {}
+function b () {}
+export {a, b}
+```
+2. export能导出多个接口，这些接口必须有标识符，并且在import时对应相应的接口名，当然我们可以更换
+```JavaScript
+// a.js
+var a = {}
+function b () {}
+export {a as A, b as B}
+// b.js
+import {A, B} from './a.js'
+
+// a.js
+var a = {}
+function b () {}
+export {a, b}
+// b.js
+import {a as A, b as B} from './a.js'
+```
+3. 在import时可以聚合所有接口
+```JavaScript
+// a.js
+var a = {}
+function b () {}
+export {a, b}
+// b.js
+import * as Obj from './a.js'
+//Obj.a Obj.b
+```
+4. export default可以导出一个默认模块，意味着函数可以没有标识符，导出的模块是一个对象;import时可以指定任意名称
+```JavaScript
+var a = {}
+export default a // ok
+
+export default function () {}
+```
+5. import进入的资源是不允许修改的
+```JavaScript
+import * as circle from './circle';
+
+// 下面两行都是不允许的
+circle.foo = 'hello';
+circle.area = function () {};
+```
+6. 可以同时export import自己 再export自己，不过感觉没啥用，主要是为了在此命名封装吧
+7. 有了6，我们还可以继承模块，导出另一个模块再为之添加一些接口
+```JavaScript
+// circleplus.js
+export * from 'circle'; // 继承了circle所有接口
+export var e = 2.71828182846;
+export default function(x) {
+  return Math.exp(x);
+}
+```
+8. import不能动态，但是import()可以，而且是异步的（有then方法）
+
+### es6模块与common.js及amd模块区别
