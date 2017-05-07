@@ -20,7 +20,7 @@
 [Generator&其异步](#Generator&其异步)  
 [async](#async)  
 类及模块  
-[装饰器Decorator](#装饰器Decorator)  
+[装饰器Decorator](#装饰器decorator)  
 [类Class](#类Class)  
 [模块Module](#模块Module)  
 
@@ -308,7 +308,7 @@ catch能够捕捉到未执行的reject，执行中的错误(try catch)
 ### async
 [toTop](#readme)  
 ***
-### 装饰器Decorator  
+### 装饰器decorator  
 [toTop](#readme)  
 #### 1.类的装饰
 在装饰者模式中，我们知道一个类不需要具有太多功能，可以通过装饰者模式来对类的功能进行拓展。当然在类也可以通过继承的方式衍生来实现，而es7明确提出了装饰符
