@@ -239,13 +239,15 @@ console.log(`my name is ${name} and i am ${age}`)//my name is hz and i am 24
 
 
 ### 正则的拓展
-[toTop](#readme)
-### Symbol
-[toTop](#readme)
-### Set&Map
-[toTop](#readme)
-### Promise
+[toTop](#readme)  
 
+### Symbol
+[toTop](#readme)  
+
+### Set&Map
+[toTop](#readme)  
+
+### Promise
 [toTop](#readme)  
 #### 1.基本使用
 单线程，异步，无阻塞，时间循环。js最具特色的地方。  
@@ -308,8 +310,10 @@ catch能够捕捉到未执行的reject，执行中的错误(try catch)
 #### 8.Promise.prototype.done
 #### 9.Promise.prototype.finally
 
+
 ### 遍历器
 [toTop](#readme)
+
 
 ### Generator&其异步
 [toTop](#readme)
