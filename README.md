@@ -615,3 +615,45 @@ export default function(x) {
 8. import不能动态，但是import()可以，而且是异步的（有then方法）
 
 ### es6模块与common.js及amd模块区别
+#### es6与common.js区别
+> CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用。  
+CommonJS 模块是运行时加载，ES6 模块是编译时输出接口。
+
+这也意味着使用common（module.exports = {}）导出一个模块，在第一次require后就会执行导出的对象，并缓存在内存里（挂载在exports下），如果在此被require就会直接取
+更像是值的副本  
+而es6模块在被import只会拿到引用，在运行到import的接口只会根据引用动态拿数据，这也是为什么es6模块不能被赋值的原因，是一个只读的接口  
+
+在es6中，如果通过module.exports = {}导出模块再使用import引入，node会（版本OK的话）自动将其转为export default  
+同理，通过es6导出的模块使用require引入则会将导出接口变为同名属性，变为common.js模块
+
+#### amd
+amd模块定义很简单
+```JavaScript
+define(
+    module_id /*可选*/,
+    [dependencies] /*可选*/,
+    definition function /*用来初始化模块或对象的函数*/
+);
+define('myModule',
+    ['foo', 'bar'],
+    // 模块定义函数
+    // 依赖项（foo 和 bar）被映射为函数的参数
+    function ( foo, bar ) {
+        // 返回一个定义了模块导出接口的值
+        // （也就是我们想要导出后进行调用的功能）
+
+        // 在这里创建模块
+        var myModule = {
+            doStuff:function(){
+                console.log('Yay! Stuff');
+            }
+        }
+
+        return myModule;
+});
+require(['foo', 'bar'], function ( foo, bar ) { // 模块id
+        // 这里写其余的代码
+        foo.doSomething();
+});
+```
+看到没，颇有angular之风，不对，angular就是照这个来的，因为在node中不需要这些（毕竟是在服务端跑的，文件都是同步的）而浏览器中是异步的，为了放置模块还没加载进来就需要等模块加载完再异步执行代码
