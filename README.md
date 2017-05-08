@@ -13,17 +13,17 @@
 [正则的拓展](#正则的拓展)  
 新类型  
 [Symbol](#symbol)  
-[Set&Map](#set&map)   
+[Set&Map](#set及map)   
 异步方案  
 [Promise](#promise)  
 [遍历器](#遍历器)  
-[Generator&其异步](#generator&其异步)  
+[Generator&其异步](#generator及其异步)  
 [async](#async)  
 类及模块  
 [装饰器Decorator](#装饰器decorator)  
 [类Class](#类class)  
 [模块Module](#模块module)  
-[es6模块与common.js及amd模块区别](#es6模块与common.js及amd模块区别)
+[es6模块与common.js及amd模块区别](#es6模块与其他模块区别)
 
 
 ### 变量声明  
@@ -236,7 +236,7 @@ console.log(`my name is ${name} and i am ${age}`)//my name is hz and i am 24
 ### symbol
 [toTop](#readme)  
 ***
-### set&map
+### set及map
 [toTop](#readme)  
 ***
 ### promise  
@@ -304,7 +304,7 @@ catch能够捕捉到未执行的reject，执行中的错误(try catch)
 ***
 ### 遍历器
 [toTop](#readme)
-### Generator&其异步  
+### Generator及其异步  
 [toTop](#readme)
 ### async
 [toTop](#readme)  
@@ -613,8 +613,9 @@ export default function(x) {
 }
 ```
 8. import不能动态，但是import()可以，而且是异步的（有then方法）
-
-### es6模块与common.js及amd模块区别
+***
+### es6模块与其他模块区别  
+[toTop](#readme)  
 #### es6与common.js区别
 > CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用。  
 CommonJS 模块是运行时加载，ES6 模块是编译时输出接口。
