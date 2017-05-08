@@ -620,8 +620,7 @@ export default function(x) {
 > CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用。  
 CommonJS 模块是运行时加载，ES6 模块是编译时输出接口。
 
-这也意味着使用common（module.exports = {}）导出一个模块，在第一次require后就会执行导出的对象，并缓存在内存里（挂载在exports下），如果在此被require就会直接取
-更像是值的副本  
+这也意味着使用common（module.exports = {}）导出一个模块，在第一次require后就会执行导出的对象，并缓存在内存里（挂载在exports下），如果再此被require就会直接取用内存中保存的值，更像是值的副本  
 而es6模块在被import只会拿到引用，在运行到import的接口只会根据引用动态拿数据，这也是为什么es6模块不能被赋值的原因，是一个只读的接口  
 
 在es6中，如果通过module.exports = {}导出模块再使用import引入，node会（版本OK的话）自动将其转为export default  
@@ -657,4 +656,4 @@ require(['foo', 'bar'], function ( foo, bar ) { // 模块id
         foo.doSomething();
 });
 ```
-看到没，颇有angular之风，不对，angular就是照这个来的，因为在node中不需要这些（毕竟是在服务端跑的，文件都是同步的）而浏览器中是异步的，为了放置模块还没加载进来就需要等模块加载完再异步执行代码
+看到没，颇有angular之风，不对，angular就是照这个来的，因为在node中不需要这些（毕竟是在服务端跑的，文件都是同步的）而浏览器中是异步的，为了防止模块还没加载进来就需要等模块加载完再异步执行代码
