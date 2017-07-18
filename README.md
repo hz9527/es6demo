@@ -242,7 +242,7 @@ console.log(`my name is ${name} and i am ${age}`)//my name is hz and i am 24
 ### promise  
 [toTop](#readme)  
 #### 1.基本使用
-单线程，异步，无阻塞，时间循环。js最具特色的地方。  
+单线程，异步，无阻塞，事件循环。js最具特色的地方。  
 Promise对象专门来解决这些问题的，通过resolve与reject来调用异步处理函数
 ```JavaScript
 new Promise((resolve, reject) => {
@@ -561,7 +561,7 @@ var a = {}
 function b () {}
 export {a, b}
 ```
-2. export能导出多个接口，这些接口必须有标识符，并且在import时对应相应的接口名，当然我们可以更换
+2. export能导出多个接口，这些接口必须有标识符，并且在import时对应相应的接口名，当然我们可以更换  
 ```JavaScript
 // a.js
 var a = {}
